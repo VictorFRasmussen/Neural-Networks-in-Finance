@@ -9,7 +9,7 @@ from torch import nn
 from matplotlib.patches import Patch
 from torch.utils.data import Dataset, DataLoader
 
-# Please note that this code has been converted from a Jupyter Notebook, hence the sometimes repeating code and weird structure:)
+# Please note that this code has been converted from a Jupyter Notebook, hence the sometimes repeating code and weird structure
 
 # 1.  Params
 

@@ -12,7 +12,7 @@ import unittest
 import math
 import numpy as np
 from scipy.stats import norm
-from scipy.stats import mvn
+from scipy.stats import multivariate_normal
 
 # Developer can toggle _DEBUG to True for more messages
 # normally this is set to False
@@ -391,12 +391,10 @@ def _phi(fs, t, gamma, h, i, r, b, v):
 # Cumulative Bivariate Normal Distribution
 # Primarily called by Psi() function, part of the _Bjerksund_Stensland_2002 model
 def _cbnd(a, b, rho):
-    # This distribution uses the Genz multi-variate normal distribution 
-    # code found as part of the standard SciPy distribution
-    lower = np.array([0, 0])
-    upper = np.array([a, b])
-    infin = np.array([0, 0])
-    correl = rho
-    error, value, inform = mvn.mvndst(lower, upper, infin, correl)
+    # scipy.stats.mvn.mvndst is deprecated/removed; multivariate_normal.cdf
+    # computes the same P(X<=a, Y<=b) for a standard bivariate normal with
+    # correlation rho.
+    cov = np.array([[1.0, rho], [rho, 1.0]])
+    value = multivariate_normal.cdf(np.array([a, b]), mean=np.array([0, 0]), cov=cov)
     return value
 
